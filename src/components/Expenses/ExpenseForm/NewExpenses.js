@@ -7,7 +7,6 @@ const NewExpenses = (props) => {
   const [oldDAte, newDate] = useState('')
 
   const TitalChange = (event) => {
-    console.log(event.target.value)
    newTitle(event.target.value)
   };
 
@@ -21,8 +20,18 @@ const NewExpenses = (props) => {
    newDate(event.target.value)
   };
 
+  const GetDetails = (event) => {
+    event.preventDefault();
+    var obj = {
+      title: oldTitle,
+      amount: oldAmount,
+      date: new Date(oldDAte),
+    }
+    console.log(obj)
+   };
+
   return (
-    <form>
+    <form onSubmit={GetDetails}>
       <div className="new-Expense__controls">
         <div className="new-expense__control">
           <label>Title:- </label>
