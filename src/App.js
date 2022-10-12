@@ -1,6 +1,8 @@
-import ExpenseItem from "./components/ExpenseItem";
+import './Expenses.css'
+ import ExpenseItem from './components/Expenses/ExpenseItem';
+  import ExpenseForm from './components/Expenses/ExpenseForm/ExpenseForm';
 function App() {
-  const expenses = [
+  const expenses = [   
     {
       id: "e1",
       title: "Toilet Paper",
@@ -30,9 +32,15 @@ function App() {
       location: "America",
     },
   ];
+  
+  const addExpenseHandler = (expense) => {
+    console.log(expense)
+  }
+
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <ExpenseForm onAddExpense={addExpenseHandler} ></ExpenseForm>
+    <div>
       {expenses.map((item) => (
         <ExpenseItem
           title={item.title}
@@ -41,6 +49,7 @@ function App() {
           location={item.location}
         ></ExpenseItem>
       ))}
+    </div>
     </div>
   );
 }
