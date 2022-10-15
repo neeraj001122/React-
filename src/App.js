@@ -1,8 +1,9 @@
+import React, {useState} from 'react';
 import './Expenses.css'
  import ExpenseItem from './components/Expenses/ExpenseItem';
   import ExpenseForm from './components/Expenses/ExpenseForm/ExpenseForm';
-function App() {
-  const expenses = [   
+  import ExpensesFilter from './components/Expenses/ExpenseFilter';
+  const Dummy_Array = [   
     {
       id: "e1",
       title: "Toilet Paper",
@@ -32,17 +33,30 @@ function App() {
       location: "America",
     },
   ];
-  
+function App() {
+ const [filterdYear, setFilterdYear] = useState('2020')
+ const [expenses, setExpenses]=useState(Dummy_Array)
   const addExpenseHandler = (expense) => {
-    console.log(expense)
-  }
+    setExpenses(expenses.unshift(expense))
+    console.log(expense);
+  };
+
+  const filterchangehandler = (selectedyear) => {
+     setFilterdYear(selectedyear) 
+  };
+   
+  const filteredExpenses = expenses.filter(items => {
+    return items.date.getFullYear().toString() === filterdYear;
+  })
 
   return (
     <div>
-      <ExpenseForm onAddExpense={addExpenseHandler} ></ExpenseForm>
+      <ExpenseForm selected={filterdYear} onAddExpense={addExpenseHandler} ></ExpenseForm>
+      <ExpensesFilter onChangefilter={filterchangehandler}></ExpensesFilter>
     <div>
-      {expenses.map((item) => (
+      {filteredExpenses.map((item) => (
         <ExpenseItem
+          key={item.id}
           title={item.title}
           amount={item.amount}
           date={item.date}
